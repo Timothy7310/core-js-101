@@ -20,10 +20,16 @@
  *    console.log(r.height);      // => 20
  *    console.log(r.getArea());   // => 200
  */
-function Rectangle(/* width, height */) {
-  throw new Error('Not implemented');
+function Rectangle(width, height) {
+  this.width = width;
+  this.height = height;
 }
 
+Rectangle.prototype = {
+  getArea() {
+    return this.width * this.height;
+  },
+};
 
 /**
  * Returns the JSON representation of specified object
@@ -35,8 +41,8 @@ function Rectangle(/* width, height */) {
  *    [1,2,3]   =>  '[1,2,3]'
  *    { width: 10, height : 20 } => '{"height":10,"width":20}'
  */
-function getJSON(/* obj */) {
-  throw new Error('Not implemented');
+function getJSON(obj) {
+  return JSON.stringify(obj);
 }
 
 
@@ -51,8 +57,8 @@ function getJSON(/* obj */) {
  *    const r = fromJSON(Circle.prototype, '{"radius":10}');
  *
  */
-function fromJSON(/* proto, json */) {
-  throw new Error('Not implemented');
+function fromJSON(proto, json) {
+  return Object.setPrototypeOf(JSON.parse(json), proto);
 }
 
 
@@ -110,35 +116,74 @@ function fromJSON(/* proto, json */) {
  *  For more examples see unit tests.
  */
 
-const cssSelectorBuilder = {
-  element(/* value */) {
-    throw new Error('Not implemented');
-  },
 
-  id(/* value */) {
-    throw new Error('Not implemented');
-  },
+class cssSelectorBuilder {
+  constructor() {
+    this.str = '';
+  }
 
-  class(/* value */) {
-    throw new Error('Not implemented');
-  },
+  element(value) {
+    this.str += `${value}`;
+  }
 
-  attr(/* value */) {
-    throw new Error('Not implemented');
-  },
+  id(value) {
+    this.str += `#${value}`;
+  }
 
-  pseudoClass(/* value */) {
-    throw new Error('Not implemented');
-  },
+  class(value) {
+    this.str += `.${value}`;
+  }
 
-  pseudoElement(/* value */) {
-    throw new Error('Not implemented');
-  },
+  attr(value) {
+    this.str += `[${value}]`;
+  }
 
-  combine(/* selector1, combinator, selector2 */) {
-    throw new Error('Not implemented');
-  },
-};
+  pseudoClass(value) {
+    this.str += `:${value}`;
+  }
+
+  pseudoElement(value) {
+    this.str += `::${value}`;
+  }
+
+  stringify() {
+    return this.str;
+  }
+
+  // combine(selector1, combinator, selector2) {
+  //   return false;
+  // }
+}
+
+// const cssSelectorBuilder = {
+//   element(/* value */) {
+//     throw new Error('Not implemented');
+//   },
+
+//   id(/* value */) {
+//     throw new Error('Not implemented');
+//   },
+
+//   class(/* value */) {
+//     throw new Error('Not implemented');
+//   },
+
+//   attr(/* value */) {
+//     throw new Error('Not implemented');
+//   },
+
+//   pseudoClass(/* value */) {
+//     throw new Error('Not implemented');
+//   },
+
+//   pseudoElement(/* value */) {
+//     throw new Error('Not implemented');
+//   },
+
+//   combine(/* selector1, combinator, selector2 */) {
+//     throw new Error('Not implemented');
+//   },
+// };
 
 
 module.exports = {
