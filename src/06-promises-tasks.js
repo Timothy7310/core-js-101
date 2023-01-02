@@ -116,7 +116,7 @@ function chainPromises(array, action) {
     }
   })
     .then((res) => res.reduce(action))
-    .catch((err) => console.log(`error: ${err}`));
+    .catch((err) => err);
   // throw new Error('Not implemented');
 }
 
